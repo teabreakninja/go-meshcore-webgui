@@ -1,0 +1,430 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #020617;
+  border-bottom: 1px solid #1f2937;
+}
+
+.topbar h1 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status {
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.status-connected {
+  background: #065f46;
+  color: #bbf7d0;
+}
+
+.status-disconnected {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+.layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 260px;
+  background: #020617;
+  border-right: 1px solid #1f2937;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 0.2rem 0.3rem;
+  font-size: 0.85rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.sidebar li:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.sidebar li:nth-child(odd) {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.sidebar li:nth-child(odd):hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.sidebar li.selected {
+  background: rgba(37, 99, 235, 0.5) !important;
+  border-left: 3px solid #3b82f6;
+  padding-left: calc(0.3rem - 3px);
+}
+
+.sidebar li.has-unread {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.sidebar li.has-unread.selected {
+  color: #e5e7eb;
+  font-weight: normal;
+}
+
+.sidebar-empty {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.3rem;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(30, 64, 175, 0.3);
+  font-size: 0.85rem;
+  max-width: 70%;
+  position: relative;
+}
+
+.message::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.5), transparent);
+}
+
+.message:last-child::after {
+  display: none;
+}
+
+.message-received {
+  align-self: flex-start;
+  margin-right: auto;
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(30, 64, 175, 0.3);
+}
+
+.message-sent {
+  align-self: flex-end;
+  margin-left: auto;
+  background: rgba(29, 78, 216, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.message-mentioned {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: rgba(34, 197, 94, 0.5) !important;
+}
+
+.message-meta {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+.sender-name {
+  color: #86efac;
+}
+
+.message-status {
+  color: #60a5fa;
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+  cursor: help;
+}
+
+.composer {
+  border-top: 1px solid #1f2937;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  background: #020617;
+}
+
+.target-select {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.target-select label {
+  font-size: 0.75rem;
+}
+
+.target-select select,
+.target-select input {
+  margin-left: 0.25rem;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.25rem;
+}
+
+#message-input {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  background: #020617;
+  color: #e5e7eb;
+  border-radius: 0.25rem;
+  border: 1px solid #374151;
+  box-sizing: border-box;
+  padding: 0.3rem 0.4rem;
+  font-size: 0.85rem;
+}
+
+#send-btn {
+  margin-top: 0.25rem;
+  padding: 0.3rem 0.75rem;
+  background: #1d4ed8;
+  border: none;
+  border-radius: 0.25rem;
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+#send-btn:hover {
+  background: #2563eb;
+}
+
+#send-btn:disabled {
+  background: #4b5563;
+  cursor: not-allowed;
+}
+
+.connect-btn {
+  padding: 0.25rem 0.75rem;
+  background: #111827;
+  border-radius: 999px;
+  border: 1px solid #374151;
+  color: #e5e7eb;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.connect-btn:hover {
+  background: #1f2937;
+}
+
+.advert-btn {
+  padding: 0.25rem 0.5rem;
+  background: #065f46;
+  border-radius: 0.25rem;
+  border: 1px solid #047857;
+  color: #d1fae5;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.advert-btn:hover {
+  background: #047857;
+  color: #ecfdf5;
+}
+
+.advert-btn:disabled {
+  background: #4b5563;
+  border-color: #6b7280;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: #020617;
+  border-radius: 0.5rem;
+  border: 1px solid #1f2937;
+  padding: 1rem;
+  width: 320px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+}
+
+.modal-content label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content input {
+  margin-top: 0.15rem;
+  width: 100%;
+  box-sizing: border-box;
+  background: #020617;
+  color: #e5e7eb;
+  border-radius: 0.25rem;
+  border: 1px solid #374151;
+  padding: 0.25rem 0.35rem;
+  font-size: 0.85rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.modal-actions button {
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid #374151;
+  background: #111827;
+  color: #e5e7eb;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  background: #1f2937;
+}
+
+.add-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: #1d4ed8;
+  border: none;
+  border-radius: 50%;
+  color: #e5e7eb;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn:hover {
+  background: #2563eb;
+}
+
+.add-btn:disabled {
+  background: #4b5563;
+  cursor: not-allowed;
+}
+
+.delete-btn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: #7f1d1d;
+  border: none;
+  border-radius: 50%;
+  color: #fecaca;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+}
+
+.delete-btn:hover {
+  background: #991b1b;
+}
+
+.star-btn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #fbbf24;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+}
+
+.star-btn:hover {
+  color: #fcd34d;
+  transform: scale(1.1);
+}

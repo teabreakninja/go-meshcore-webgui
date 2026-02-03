@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Meshcore GUI</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <h1>Meshcore GUI</h1>
+        <div class="node-details">
+          Model: <span id="node-model">-</span> |
+          Build: <span id="node-fw-build">-</span> |
+          Capacity: <span id="node-capacity">-</span>
+        </div>
+        <div class="topbar-right">
+          <button id="send-zero-hop-advert-btn" class="advert-btn" title="Send Zero-Hop Advert">Zero-Hop</button>
+          <button id="send-flood-advert-btn" class="advert-btn" title="Send Flood Advert">Flood</button>
+          <div id="connection-status" class="status status-disconnected">Disconnected</div>
+          <button id="node-connect-btn" class="connect-btn">Connect</button>
+        </div>
+      </header>
+      <div class="layout">
+        <aside class="sidebar">
+          <section>
+            <h2>Contacts</h2>
+            <ul id="contacts-list"></ul>
+          </section>
+          <section>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h2>Channels</h2>
+              <button id="add-channel-btn" class="add-btn" title="Add Channel">+</button>
+            </div>
+            <ul id="channels-list"></ul>
+          </section>
+        </aside>
+        <main class="main">
+          <section class="messages" id="messages"></section>
+          <section class="composer">
+            <div class="target-select">
+              <label>
+                Target:
+                <select id="target-type">
+                  <option value="contact">Contact</option>
+                  <option value="channel">Channel</option>
+                </select>
+              </label>
+              <label>
+                ID:
+                <input id="target-id" placeholder="c1, c2, ch1, ..." />
+              </label>
+            </div>
+            <div style="position: relative;">
+              <textarea id="message-input" placeholder="Type a message..." maxlength="150"></textarea>
+              <div id="char-counter" style="font-size: 0.75rem; color: #9ca3af; text-align: right; margin-top: 0.25rem;">0 / 150</div>
+            </div>
+            <button id="send-btn">Send</button>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="connect-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Connect to Meshcore Node</h2>
+        <label>
+          Host
+          <input id="node-host" placeholder="192.168.1.50" />
+        </label>
+        <label>
+          Port
+          <input id="node-port" type="number" value="5000" />
+        </label>
+        <div class="modal-actions">
+          <button id="connect-cancel-btn">Cancel</button>
+          <button id="connect-confirm-btn" type="submit">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="add-channel-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Add Channel</h2>
+        <label>
+          Channel Index (0-3)
+          <input id="channel-index" type="number" value="0" min="0" max="3" />
+          <small style="color: #9ca3af; font-size: 0.7rem;">Most devices support 4 channels (0-3)</small>
+        </label>
+        <label>
+          Channel Name
+          <input id="channel-name" placeholder="e.g. MyChannel or #PublicChannel" maxlength="31" />
+          <small style="color: #9ca3af; font-size: 0.7rem;">Use # prefix for public channels shared with community</small>
+        </label>
+        <label>
+          Channel Secret (16 bytes hex, 32 chars)
+          <input id="channel-secret" placeholder="Leave empty to generate random secret" maxlength="32" />
+          <small style="color: #9ca3af; font-size: 0.7rem;">Default public: 8b3387e9c5cdea6ac9e5edbaa115cd72</small>
+        </label>
+        <div class="modal-actions">
+          <button id="add-channel-cancel-btn">Cancel</button>
+          <button id="add-channel-confirm-btn">Add Channel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/app.js?v=12"></script>
+  </body>
+</html>
